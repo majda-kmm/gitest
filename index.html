@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gîte Napoléon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=AXytrBh5RsttUmuJouISOdW6PeNfIu14C3eaBJg4v9OH1DJk0MKrdP9mBjPaQIQGzcRxz_m9ygWSS4Ir&currency=EUR"></script> 
+    <script type="module">
+        // Importer Firebase
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getDatabase, ref, push, get, set, update } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js';
+        const firebaseConfig = {
+            apiKey: "AIzaSyD-tyODv-8v3nI6xL-OOpyawwhFFR98Dq8",
+            authDomain: "gite-napoleon.firebaseapp.com",
+            databaseURL: "https://gite-napoleon-default-rtdb.firebaseio.com",
+            projectId: "gite-napoleon",
+            storageBucket: "gite-napoleon.appspot.com",
+            messagingSenderId: "220241162803",
+            appId: "1:220241162803:web:aa6477abd97509f129a946",
+            measurementId: "G-CRK2ZNKGYM"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        window.db = db;
+        window.ref = ref;
+        window.get = get;
+        window.set = set;
+        window.push = push;
+        window.update = update;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue au Gîte Napoléon</h1>
+        <p>Un havre de paix au cœur de la campagne</p>
+    </header>
+
+    <main>
+        <section class="container">
+            <div class="grid-left">
+                <section id="reservation">
+                    <h2>Réservez votre séjour</h2>
+                    <p class="description">Bienvenue au Gîte Napoléon, un havre de paix idéal pour une étape reposante et conviviale. Niché au cœur de la campagne, notre gîte vous offre un accueil chaleureux et une atmosphère apaisante. Profitez de chambres confortables et d'un cadre naturel magnifique pour recharger vos batteries et vous ressourcer.</p>
+                </section>
+                <div class="info-section">
+                    <h2>Informations sur le Gîte</h2>
+                    <ul>
+                        <li><strong>Adresse :</strong> Boulevard des Pyrénées, 32250 Montréal</li>
+                        <li><strong>Périodes d'ouverture :</strong> du 01 avril au 30 novembre</li>
+                        <li><strong>Animaux :</strong> Chiens acceptés, Accueil équidés</li>
+                        <li><strong>Services :</strong> Piscine, Garage à vélo, Parking</li>
+                        <li><strong>Capacité :</strong> 3 chambres pour un total de 18 personnes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid-right">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="dateRange">Dates de séjour</label>
+                        <input type="text" id="dateRange" name="dateRange" placeholder="Sélectionnez vos dates">
+                    </div>
+                    <div class="form-group" id="personCount">
+                        <label for="numberOfPeople">Nombre de personnes</label>
+                        <select id="numberOfPeople" name="numberOfPeople">
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5 personnes</option>
+                            <option value="6">6 personnes</option>
+                            <option value="7">7 personnes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="accommodation">Type d'hébergement</label>
+                        <select id="accommodation" name="accommodation">
+                            <option value="fullRoom">Chambre complète - 75€</option>
+                            <option value="dormitory">Dortoir (20€/place)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="fullRoomOptions">
+                        <label for="roomType">Choisissez votre chambre</label>
+                        <select id="roomType" name="roomType">
+                            <option value="Napoléon">Napoléon</option>
+                            <option value="Bonaparte">Bonaparte</option>
+                            <option value="NotreDame">Notre-Dame</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="breakfast">Petit déjeuner</label>
+                        <select id="breakfast" name="breakfast">
+                            <option value="none">Sans petit déjeuner</option>
+                            <option value="included">Petit déjeuner inclus (si hébergement) - 5€</option>
+                        </select>
+                    </div>
+                    <div class="price-display">
+                        <p>Prix total : <span id="price">0€</span></p>
+                    </div>
+                    <button type="submit" id="reserveButton">Réserver</button>
+                    <div id="paypal-button-container"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gîte Napoléon. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

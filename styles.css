@@ -1,0 +1,185 @@
+/* Base Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('4A1D2365-B30A-4210-BBE5-9D226749FE54 2.JPEG') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    padding: 120px 20px;
+    border-bottom: 5px solid #7FC5FE;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 4em;
+    margin: 0;
+    font-family: 'Great Vibes', cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+header p {
+    font-size: 1.5em;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+/* Container Styles */
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 50px 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+.grid-right {
+    /* Style pour la grille de droite */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-section {
+    margin-top: 50px;
+    border-radius: 15px;
+    padding: 30px 20px;
+    background-color: #f0f3f5;
+}
+
+/* Typography Styles */
+h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: #7FC5FE;
+    font-weight: 600;
+    font-family: 'Great Vibes', cursive;
+}
+
+/* Form Styles */
+#bookingForm {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #7FC5FE;
+    outline: none;
+    box-shadow: 0 0 5px rgba(130, 181, 209, 0.5);
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+/* Custom Font for Select Options */
+select {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Price Display Styles */
+.price-display {
+    text-align: center;
+    font-size: 1.7em;
+    margin-top: 20px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.price-display:hover {
+    color: #5a9bd4;
+}
+
+/* Button Styles */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    background-color: #7FC5FE;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #549ed8;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #333;
+    color: #f0f3f5;
+    border-top: 5px solid #7FC5FE;
+    margin-top: 50px;
+}
+
+footer p {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.8em;
+    }
+
+    header p {
+        font-size: 1.2em;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+}
