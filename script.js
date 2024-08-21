@@ -33,13 +33,13 @@ function calculatePrice() {
     let totalPrice = 0;
 
     if (accommodation === 'fullRoom') {
-        totalPrice = 75;
+        totalPrice = 0.75;
     } else if (accommodation === 'dormitory') {
-        totalPrice = 20 * numberOfPeople;
+        totalPrice = 0.20 * numberOfPeople;
     }
 
     if (breakfast === 'included') {
-        totalPrice += 5 * numberOfPeople;
+        totalPrice += 0.5 * numberOfPeople;
     }
 
     document.getElementById('price').textContent = `${totalPrice}€`;
