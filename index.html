@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gîte Napoléon</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://www.paypal.com/sdk/js?client-id=AY7hjQXm9uVgPa9ysRnsw6r31h1kAcu1UWpnr7LgqmNEatTe2Es42H9HD1LdrbrE6t3Y-JCJyctCCbPF&currency=EUR"></script> 
+    <script src="https://www.paypal.com/sdk/js?client-id=AXytrBh5RsttUmuJouISOdW6PeNfIu14C3eaBJg4v9OH1DJk0MKrdP9mBjPaQIQGzcRxz_m9ygWSS4Ir&currency=EUR"></script>
     <script type="module">
-        // Importer Firebase
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
         import { getDatabase, ref, push, get, set, update } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js';
+
         const firebaseConfig = {
             apiKey: "AIzaSyD-tyODv-8v3nI6xL-OOpyawwhFFR98Dq8",
             authDomain: "gite-napoleon.firebaseapp.com",
@@ -36,6 +40,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
     <script src="script.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>Bienvenue au Gîte Napoléon</h1>
@@ -44,75 +49,127 @@
 
     <main>
         <section class="container">
-            <div class="grid-left">
-                <section id="reservation">
-                    <h2>Réservez votre séjour</h2>
-                    <p class="description">Bienvenue au Gîte Napoléon, un havre de paix idéal pour une étape reposante et conviviale. Niché au cœur de la campagne, notre gîte vous offre un accueil chaleureux et une atmosphère apaisante. Profitez de chambres confortables et d'un cadre naturel magnifique pour recharger vos batteries et vous ressourcer.</p>
-                </section>
+            <div class="header-section">
                 <div class="info-section">
                     <h2>Informations sur le Gîte</h2>
+                    <p>
+                        Situé sur le GR65 vers Saint-Jacques de Compostelle, en plein cœur de la bastide de Montréal-du-Gers, le <strong>Gîte Napoléon</strong>, reconnaissable à ses volets bleus, vous offre un accueil chaleureux pour une pause agréable et reposante.
+                    </p>
+                    <p>
+                        <strong>Accueil :</strong> à partir de 14h00<br>
+                        <strong>Départ :</strong> au plus tard à 10h00
+                    </p>
+                    <p>
+                        Notre gîte d’étape vous propose tout le confort nécessaire avec :
+                    </p>
                     <ul>
-                        <li><strong>Adresse :</strong> Boulevard des Pyrénées, 32250 Montréal</li>
-                        <li><strong>Périodes d'ouverture :</strong> du 01 avril au 30 novembre</li>
-                        <li><strong>Animaux :</strong> Chiens acceptés, Accueil équidés</li>
-                        <li><strong>Services :</strong> Piscine, Garage à vélo, Parking</li>
-                        <li><strong>Capacité :</strong> 3 chambres pour un total de 18 personnes</li>
+                        <li>2 chambres (capacité de 5 et 6 personnes)</li>
+                        <li>Total de 11 personnes</li>
                     </ul>
+                    <p>
+                        Vous pourrez y cuisiner à votre convenance, profiter de nos 3 salles de douche et 3 WC, et bénéficier d’un transport à la demande.
+                    </p>
+                    <p>
+                        N'oubliez pas de visiter notre boutique, où vous trouverez une sélection de produits régionaux, soigneusement choisis par le propriétaire.
+                    </p>
+                    <p>
+                        <strong>Langues parlées : français et espagnol</strong>
+                    </p>
+                    <p>
+                        Nous nous réjouissons de vous accueillir et de rendre votre séjour aussi agréable que possible !
+                    </p>
+                    
+                    
+            <div id="map" ></div>
+            <h4> Boulevard des Pyrénées, 32250 Montréal</h4>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
                 </div>
             </div>
+            <div class="description">
+                <h2>Réservez votre séjour</h2> 
+              </div>
 
-            <div class="grid-right">
-                <form id="bookingForm">
-                    <div class="form-group">
-                        <label for="dateRange">Dates de séjour</label>
-                        <input type="text" id="dateRange" name="dateRange" placeholder="Sélectionnez vos dates">
+            
+            <div class="grid-container">
+                <div class="grid-item grid-step1">
+                    <section id="reservation">
+                        <h3>1. Dates de séjour</h3>
+                        <div id="calendar-container">
+                            <div id="dateRange"></div>
+                        </div>
+                        <button type="button" id="nextToStep2">Suivant</button>
+                    </section>
+                </div>
+        
+                <div class="grid-item grid-step2-3">
+                    <div id="step2" class="form-step" hidden>
+                        <h3>2. Nombre de personnes</h3>
+                        <div class="form-group">
+                            <select id="numberOfPeople" name="numberOfPeople">
+                                <option value="1">1 personne</option>
+                                <option value="2">2 personnes</option>
+                                <option value="3">3 personnes</option>
+                                <option value="4">4 personnes</option>
+                                <option value="5">5 personnes</option>
+                                <option value="6">6 personnes</option>
+                                <option value="7">7 personnes</option>
+                                <option value="2">8 personnes</option>
+                                <option value="3">9 personnes</option>
+                                <option value="4">10 personnes</option>
+                                <option value="5">11 personnes</option>
+                            </select>
+                        </div>
+                        
+                        <button type="button" id="nextToStep3">Suivant</button>
                     </div>
-                    <div class="form-group" id="personCount">
-                        <label for="numberOfPeople">Nombre de personnes</label>
-                        <select id="numberOfPeople" name="numberOfPeople">
-                            <option value="1">1 personne</option>
-                            <option value="2">2 personnes</option>
-                            <option value="3">3 personnes</option>
-                            <option value="4">4 personnes</option>
-                            <option value="5">5 personnes</option>
-                            <option value="6">6 personnes</option>
-                            <option value="7">7 personnes</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="accommodation">Type d'hébergement</label>
+        
+                    <div id="step3" class="form-step" hidden>
+                        <h3>3. Type d'hébergement</h3>
+                        <div class="form-group">
                         <select id="accommodation" name="accommodation">
-                            <option value="fullRoom">Chambre complète - 75€</option>
+                            <option value="1">Veuillez choisir</option>
+                            <option value="fullRoom">Chambre complète - 70€</option>
                             <option value="dormitory">Dortoir (20€/place)</option>
                         </select>
                     </div>
-                    <div class="form-group" id="fullRoomOptions">
-                        <label for="roomType">Choisissez votre chambre</label>
-                        <select id="roomType" name="roomType">
-                            <option value="Napoléon">Napoléon</option>
-                            <option value="Bonaparte">Bonaparte</option>
-                            <option value="NotreDame">Notre-Dame</option>
-                        </select>
+                        <div class="form-group">
+                            <label for="breakfast">Ajouter le petit-déjeuner ?</label>
+                            <select id="breakfast" name="breakfast">
+                                <option value="1">Veuillez choisir</option>
+                                <option value="included">Oui - 7€/personne</option>
+                                <option value="notIncluded">Non</option>
+                                
+                            </select>
+                        </div>
+                        <button type="button" id="nextToStep4">Suivant</button>
                     </div>
-                    <div class="form-group">
-                        <label for="breakfast">Petit déjeuner</label>
-                        <select id="breakfast" name="breakfast">
-                            <option value="none">Sans petit déjeuner</option>
-                            <option value="included">Petit déjeuner inclus (si hébergement) - 5€</option>
-                        </select>
-                    </div>
+                </div>
+            </div>
+        
+            <div class="final-steps">
+                <div id="step4" class="form-step" hidden>
+                    <h3>4. Informations</h3>
+                    <div id="peopleDetails"></div>
+                    <button type="button" id="nextToStep5">Suivant</button>
+                </div>
+        
+                <div id="step5" class="form-step" hidden>
                     <div class="price-display">
                         <p>Prix total : <span id="price">0€</span></p>
                     </div>
-                    <button type="submit" id="reserveButton">Réserver</button>
-                    <div id="paypal-button-container"></div>
-                </form>
+                    <button type="button" id="reserveButton">Réserver</button>
+                    <div class="paypal-button-wrapper">
+                        <div id="paypal-button-container" hidden></div>
+                    </div>
+                </div>
             </div>
         </section>
+        
     </main>
 
     <footer>
         <p>&copy; 2024 Gîte Napoléon. Tous droits réservés.</p>
     </footer>
 </body>
+
 </html>
